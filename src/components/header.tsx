@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { FaChevronDown } from "react-icons/fa6";
+import Logo from '../assets/common/images/logo.svg';
 
 const tabMenu = ["Tapos", "Wallet", "Leaderboard", "Shop"];
 
@@ -12,7 +13,7 @@ const AppHeader = () => {
 
   return (
     <header className="flex flex-row justify-between items-center p-4">
-      <img src="/src/assets/common/images/logo.svg" alt="logo" />
+      <img src={Logo} alt="logo" />
       <div className="flex flex-row items-center space-x-8">
         {tabMenu.map((item, index) => (
           <button
