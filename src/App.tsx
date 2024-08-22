@@ -1,7 +1,34 @@
 import AppHeader from "./components/header";
 import { FaAngleRight } from "react-icons/fa6";
 import AppButton from "./components/AppButton";
+import { HomeAPI } from "./services/homeServices";
+import { useState } from "react";
+
 const App = () => {
+  const [userInfo, setUserInfo] = useState<any>();
+  const [loading, setLoading] = useState<boolean>(false);
+
+  const getUserByAddress = async (address: string) => {
+    try {
+      setLoading(true);
+      const rq = await HomeAPI.getUserByAddress(address);
+      if (rq.success) {
+        setUserInfo(rq.msg);
+      } else {
+        setUserInfo(undefined);
+      }
+    } catch (error) {
+      console.log(error);
+      setUserInfo(undefined);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleClick = () => {
+    getUserByAddress('string');
+  };
+
   return (
     <div>
       <div className="mx-[150px]">
@@ -20,15 +47,16 @@ const App = () => {
             </div>
           </div>
           <AppButton
-            className="bg-[#ca5c3b] text-white"
-            onClick={() => console.log("Connect X Account Clicked")}
+            className={`bg-[${!userInfo?.twitterId ? '#ca5c3b' : 'gray'}] text-white`}
+            onClick={handleClick}
+            disabled={loading}
           >
-            Connect your X Account
+            {loading ? 'Loading...' : (userInfo?.twitterId ? userInfo.twitterUsername : 'Connect your X account')}
           </AppButton>
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default App
+export default App;
