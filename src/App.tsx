@@ -47,7 +47,7 @@ const App = () => {
             </div>
           </div>
           <AppButton
-            className={`bg-[${!userInfo?.twitterId ? '#ca5c3b' : 'gray'}] text-white w-[250px]`}
+            className={`bg-[${!userInfo?.twitterId ? '#ca5c3b' : 'gray'}] text-white w-[251px]`}
             onClick={handleClick}
             disabled={loading}
           >
